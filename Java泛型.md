@@ -268,7 +268,7 @@ setFirst(? extends Employee){......}
 
 ### 通配符的超类型限定 （super）
 ```
-//这个通配符限制为Manager的所有父类
+//这个通配符限制为Manager的所有超类
 Pair<? super Manager> pair = new Pair<>();
 //这时pair的set和get方法类似
 //不能调用，因为编译器不知道具体类型,不能传Employee或者Object只能传Manager，或者某个子类型。
@@ -276,6 +276,36 @@ setFirst(? super Manager){......}
 //不能保证返回值类型，只能将其赋值给Object。
 ? super Manager getFirst()
 
+```
+
+```
+
+```
+
+### 无限定通配符
+```
+//与原始类型的本质区别是可以用任意 Object 对象调用原始 Pair 类的 setObject
+方法
+Pair<?> pair = new Pair<>();
+//这时pair的set和get方法类似
+//不能调用，甚至不能传Object。可以调用setFirst(null)
+void setFirst(?){......}
+//不能保证返回值类型，只能将其赋值给Object。
+? Manager getFirst()
+```
+
+### 通配符捕获
+```
+
+public static void swap(Pair<?> pair){
+    swapHelper(pair);
+}
+//这时T捕获通配符‘？’，
+public static <T> void swapHelper(Pair<T> pair){
+    T t = pair.getFirst();
+    pair.setFirst(pair.getSecond());
+    pair.setSecond(t);
+}
 ```
 
 ----
